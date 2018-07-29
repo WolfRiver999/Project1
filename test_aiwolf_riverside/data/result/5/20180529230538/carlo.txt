@@ -1,0 +1,9 @@
+VILLAGER(win/count):74.0/114.0
+
+SEER(win/count):32.0/59.0
+
+WEREWOLF(win/count):14.0/60.0
+
+POSSESSED(win/count):27.0/67.0
+
+joinCount:300.0

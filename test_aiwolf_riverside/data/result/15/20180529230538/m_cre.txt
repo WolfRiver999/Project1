@@ -1,0 +1,13 @@
+VILLAGER(win/count):57.0/104.0
+
+SEER(win/count):11.0/22.0
+
+MEDIUM(win/count):5.0/10.0
+
+BODYGUARD(win/count):4.0/14.0
+
+WEREWOLF(win/count):16.0/34.0
+
+POSSESSED(win/count):14.0/16.0
+
+joinCount:200.0

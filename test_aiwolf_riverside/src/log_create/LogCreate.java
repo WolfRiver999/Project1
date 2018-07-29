@@ -17,7 +17,7 @@ public class LogCreate {
 	 */
 	public static void main( String args[] ) {
 		try {
-			String logPass = ""; // 解析したいログのパスを指定する。脳筋で絶対参照。
+			String logPass = "data/log"; // 解析したいログのパスを指定する。脳筋で絶対参照。
 			File logData = new File(logPass); // ファイルにアクセスするための変数。
 			System.out.println("main_program start.");
 			(new LogCreate()).mainLoop(logData);
@@ -50,7 +50,7 @@ public class LogCreate {
 			// .log形式のファイルを読む
 			if( dir.isFile() ) {
 				try {
-					System.out.println("dir" + " is open.");
+					System.out.println( dir.toString() + " is open." );
 					openFile(dir);
 				}
 				catch ( Exception e ) {
@@ -69,18 +69,18 @@ public class LogCreate {
 		String str;
 		// 公式からログデータを拾ってきた場合はこの形式のため、別処理
 		if( file.toString().contains(".gz" ) ) {
-			GZIPInputStream gz = new GZIPInputStream(new FileInputStream(file));
-			InputStreamReader isr = new InputStreamReader(gz,"Shift-JIS");
-			br = new BufferedReader(isr);
+			GZIPInputStream gz = new GZIPInputStream( new FileInputStream(file) );
+			InputStreamReader isr = new InputStreamReader( gz,"Shift-JIS" );
+			br = new BufferedReader( isr );
 		}
 		// 解凍済ファイル
 		else {
-			FileReader fr = new FileReader(file);
-			br = new BufferedReader(fr);
+			FileReader fr = new FileReader( file );
+			br = new BufferedReader( fr );
 		}
 
 		try {
-			while( (str = br.readLine()) != null) {
+			while( (str = br.readLine()) != null ) {
 				String array[] = str.split(",");
 				// ログデータのstatusを確認
 				if( array[1].equals("status") ) {
@@ -89,19 +89,21 @@ public class LogCreate {
 						agentCount++; // 接続されたエージェント数をカウント
 					}
 				}
-				// 5人村のログデータ
-				if( agentCount < 15 ) {
-					(new LogResult5()).OpenFile(file);
-				}
-				// 15人村のログデータ
-				else {
-					(new LogResult15()).OpenFile(file);
-				}
-
-				agentCount = 0;
 			}
+			// 5人村のログデータ
+			if( agentCount < 15 ) {
+				(new LogResult5()).OpenFile(file);
+			}
+			// 15人村のログデータ
+			else {
+				(new LogResult15()).OpenFile(file);
+			}
+
+
+			agentCount = 0;
+
 		}
-		catch (Exception e) {
+		catch( Exception e ) {
 			e.printStackTrace();
 		}
 		br.close();
